@@ -390,6 +390,11 @@ class XMLConverter:
 
         if total_overlap:
             self.logger.warning(f"File {page.filepath} contains overlapping baseline sem_seg")
+            # ---- CC: DEBUG: outputting the binary maps as pngs to see whats going on ----
+            xml_file_name = os.path.basename(page.filepath)
+            output_file_name = f"testbinmap_{xml_file_name}.png"
+            cv2.imwrite(output_file_name, sem_seg * 255)
+	    	# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
         if not sem_seg.any():
             self.logger.warning(f"File {page.filepath} does not contains baseline sem_seg")
         return sem_seg
